@@ -1,0 +1,106 @@
+@import "variables";
+@import "mixins";
+@import "content";
+@import "layout";
+@import "login";
+@import "modal";
+@import "metrics";
+@import "animation";
+@import "responsive";
+
+* {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
+
+html {
+  // variables are updated by main.js based on theming
+  --primary-color: white;
+  --paper-color: white;
+  --loading-color: lightGrey;
+  --background-color: white;
+  --divider-color: grey;
+  --text-color: black;
+  --cardheader-color: lightGrey;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--text-color);
+  height: 100vh;
+
+  body {
+    line-height: 1.3em;
+    margin: 0px !important;
+    background-color: var(--paper-color);
+  }
+
+  #app {
+    #appContainer {
+      // Position fixed disable elastic scroll on iOS devices
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      #iPadBorder {
+        position: absolute;
+        z-index: 1010;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        height: env(safe-area-inset-top);
+        background: var(--primary-color);
+
+        &:after {
+          content: "";
+          background: black;
+          opacity: 0.2;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  &:visited {
+    color: inherit;
+  }
+}
+
+p {
+  line-height: 1.3em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2em;
+}
+
+.emptyContainer {
+  opacity: 0.8;
+  font-size: 0.8em;
+  padding-top: 40px;
+  text-align: center;
+  width: 100%;
+}
