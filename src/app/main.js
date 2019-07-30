@@ -78,9 +78,7 @@ export const Main = () => {
                   <div className="right"></div>
                 </div>
                 <main style={{ position: "relative", flexGrow: 1 }}>
-                  <Switch>
-                    <Route exact path="/" component={Generator} />
-                  </Switch>
+                  <Generator />
                   <SnackbarsManager />
                 </main>
               </div>

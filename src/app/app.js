@@ -9,15 +9,6 @@ import { Main } from "./main";
 
 // Inject SCSS, @import other dependancies
 import "../www/styles/index.scss";
-import * as Sentry from "@sentry/browser";
-
-// Integrate SENTRY to catch and report errors
-if (process.env.SENTRY_DSN) {
-  Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    release: "seven23@1.0.0-build." + process.env.TRAVIS_COMMIT
-  });
-}
 
 if (process.env.NODE_ENV == "development") {
   document.title = "Seven23 - localhost";
