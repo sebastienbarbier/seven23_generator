@@ -9,10 +9,8 @@ const useTheme = () => {
   const theme = useSelector(state =>
     state.user ? state.app.theme || "light" : "light"
   );
-  const url = useSelector(state => (state.app ? state.app.url : "/"));
 
   const [muiTheme, setMuiTheme] = useState(() => lighttheme);
-  // Update colors based on theme or url
   useEffect(() => {
     const themeObject = createMuiTheme(
       theme === "dark" ? darktheme : lighttheme
@@ -21,29 +19,6 @@ const useTheme = () => {
     // Default colors are the dashboard one
     themeObject.palette.primary = themeObject.palette.dashboard.primary;
     themeObject.palette.primary.main = themeObject.palette.dashboard.main;
-
-    // Override each colors based on url
-    if (url.startsWith("/dashboard")) {
-      // Do nothing because default color is dashboard
-    } else if (url.startsWith("/transactions")) {
-      themeObject.palette.primary = themeObject.palette.transactions.primary;
-      themeObject.palette.primary.main = themeObject.palette.transactions.main;
-    } else if (url.startsWith("/categories")) {
-      themeObject.palette.primary = themeObject.palette.categories.primary;
-      themeObject.palette.primary.main = themeObject.palette.categories.main;
-    } else if (url.startsWith("/changes")) {
-      themeObject.palette.primary = themeObject.palette.changes.primary;
-      themeObject.palette.primary.main = themeObject.palette.changes.main;
-    } else if (url.startsWith("/report")) {
-      themeObject.palette.primary = themeObject.palette.report.primary;
-      themeObject.palette.primary.main = themeObject.palette.report.main;
-    } else if (url.startsWith("/settings")) {
-      themeObject.palette.primary = themeObject.palette.settings.primary;
-      themeObject.palette.primary.main = themeObject.palette.settings.main;
-    } else {
-      themeObject.palette.primary = themeObject.palette.default.primary;
-      themeObject.palette.primary.main = themeObject.palette.default.main;
-    }
 
     setMuiTheme(themeObject);
 
@@ -63,7 +38,7 @@ const useTheme = () => {
     css.setProperty("--number-green-color", themeObject.palette.numbers.green);
     css.setProperty("--number-red-color", themeObject.palette.numbers.red);
     css.setProperty("--number-blue-color", themeObject.palette.numbers.blue);
-  }, [theme, url]);
+  }, [theme]);
 
   return useMemo(() => createMuiTheme(muiTheme), [muiTheme]);
 };
