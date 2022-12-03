@@ -1,9 +1,12 @@
 import React from "react";
-import { render } from "react-dom";
+import { createRoot } from 'react-dom/client';
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { store, persistor } from "./store";
+
+
+import { BrowserRouter } from "react-router-dom";
 
 import { Main } from "./main";
 
@@ -44,11 +47,17 @@ document.getElementById("splashscreen").classList.add("hide");
   throttle("resize", "optimizedResize");
 })();
 
-render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <Main />
-    </PersistGate>
-  </Provider>,
-  document.getElementById("app")
+const container = document.getElementById('app');
+const root = createRoot(container);
+
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Main />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>,
+  </React.StrictMode>
 );

@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const buildPath = path.resolve(__dirname, "build");
 const nodeModulesPath = path.resolve(__dirname, "node_modules");
-const TransferWebpackPlugin = require("transfer-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const config = {
@@ -11,31 +11,45 @@ const config = {
   entry: ["./src/app/app.js"],
   // Server Configuration options
   devServer: {
-    contentBase: "src/www/html", // Relative directory for base of server
-    hot: true, // Live-reload
-    inline: true,
+    static: {
+      directory: "src/www/html",
+    },
+    compress: true,
     port: 3000, // Port Number
     host: "0.0.0.0", // Change to '0.0.0.0' for external facing server
     historyApiFallback: true,
-    disableHostCheck: true
+    allowedHosts: "all",
   },
   devtool: "eval",
   output: {
     path: buildPath, // Path of output file
     filename: "app.js",
-    globalObject: "this"
+    globalObject: "this",
+  },
+  stats: {
+    children: true
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": {
+      },
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
     // Moves files
-    new TransferWebpackPlugin(
-      [{ from: "www/html" }, { from: "www/images", to: "images" }],
-      path.resolve(__dirname, "src")
-    )
+    new CopyWebpackPlugin(
+      {
+          patterns: [
+              { from: 'src/www/html' },
+              { from: "src/www/images", to: "images" }
+          ]
+      }
+      // [{ from: "www/html" }, { from: "www/images", to: "images" }],
+      // path.resolve(__dirname, "src")
+    ),
     // new WorkboxPlugin.GenerateSW({
     //   // these options encourage the ServiceWorkers to get in there fast
     //   // and not allow any straggling 'old' SWs to hang around
@@ -50,42 +64,40 @@ const config = {
         test: /\.js$/, // All .js files
         loader: "babel-loader",
         options: {
-          presets: [
-            [
-              "@babel/env",
-              {
-                targets: {
-                  edge: "17",
-                  firefox: "60",
-                  chrome: "67",
-                  safari: "11.1"
-                }
-              }
-            ],
-            "@babel/preset-react"
-          ],
+          presets: ["@babel/env", "@babel/react"],
           plugins: [
             "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime"
-          ]
+            "@babel/plugin-transform-runtime",
+            "@babel/transform-arrow-functions",
+          ],
         },
-        exclude: [nodeModulesPath]
+        exclude: [nodeModulesPath],
       },
       {
         test: /\.worker.js$/,
         loader: "worker-loader",
-        options: { inline: true, fallback: false }
+        options: {
+          inline: "fallback",
+          filename: "[name].[contenthash].worker.js",
+        },
       },
       {
         test: /\.(scss|css)$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|svg|eot|woff|ttf|svg|woff2)$/,
-        loader: "file-loader?name=[name].[ext]"
-      }
-    ]
-  }
+        use: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name : 'name=[name].[ext]'
+                }
+            }
+        ]
+      },
+    ],
+  },
 };
 
 module.exports = config;

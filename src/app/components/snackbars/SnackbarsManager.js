@@ -6,8 +6,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-import Snackbar from "@material-ui/core/Snackbar";
-import Button from "@material-ui/core/Button";
+import Snackbar from "@mui/material/Snackbar";
+import Button from "@mui/material/Button";
 
 import AppActions from "../../actions/AppActions";
 
@@ -45,7 +45,6 @@ export default function SnackbarsManager() {
       message={snackbar ? snackbar.message : ""}
       autoHideDuration={3000}
       onClose={() => setOpen(false)}
-      onExited={onExited}
       action={
         snackbar && snackbar.onClick ? (
           <Button color="inherit" size="small" onClick={handleUndoButton}>
@@ -55,6 +54,8 @@ export default function SnackbarsManager() {
           ""
         )
       }
-    />
+      TransitionProps={{
+        onExited
+      }} />
   );
 }

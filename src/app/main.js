@@ -5,11 +5,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Router, Route, Redirect, Switch } from "react-router-dom";
-import { HookedBrowserRouter } from "./router";
 import moment from "moment";
 
-import { MuiThemeProvider } from "@material-ui/core/styles"; // v1.x
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles"; // v1.x
 import MomentUtils from "@date-io/moment";
 
 import SnackbarsManager from "./components/snackbars/SnackbarsManager";
@@ -60,32 +58,30 @@ export const Main = () => {
   const theme = useTheme();
 
   return (
-    <HookedBrowserRouter history={history}>
-      <MuiThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <div id="appContainer">
-            <div id="iPadBorder"></div>
-            <div
-              id="container"
-              style={{
-                backgroundColor: theme.palette.background.default,
-                color: theme.palette.text.primary
-              }}
-            >
-              <div id="content">
-                <div id="toolbar" className="hideMobile">
-                  <div className="left"></div>
-                  <div className="right"></div>
-                </div>
-                <main style={{ position: "relative", flexGrow: 1 }}>
-                  <Generator />
-                  <SnackbarsManager />
-                </main>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <div id="appContainer">
+          <div id="iPadBorder"></div>
+          <div
+            id="container"
+            style={{
+              backgroundColor: theme.palette.background.default,
+              color: theme.palette.text.primary
+            }}
+          >
+            <div id="content">
+              <div id="toolbar" className="hideMobile">
+                <div className="left"></div>
+                <div className="right"></div>
               </div>
+              <main style={{ position: "relative", flexGrow: 1 }}>
+                <Generator />
+                <SnackbarsManager />
+              </main>
             </div>
           </div>
-        </MuiPickersUtilsProvider>
-      </MuiThemeProvider>
-    </HookedBrowserRouter>
+        </div>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };

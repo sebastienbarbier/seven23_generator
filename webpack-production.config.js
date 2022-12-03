@@ -4,19 +4,22 @@ const webpack = require("webpack");
 const path = require("path");
 const buildPath = path.resolve(__dirname, "build");
 const nodeModulesPath = path.resolve(__dirname, "node_modules");
-const TransferWebpackPlugin = require("transfer-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const SentryCliPlugin = require("@sentry/webpack-plugin");
 
+const GIT_COMMIT = `${process.env.GITHUB_REF_NAME}.${process.env.GITHUB_SHA}`;
+
 const config = {
+  mode: "production",
   entry: [path.join(__dirname, "/src/app/app.js")],
   // Render source-map file for final build
   devtool: "source-map",
   // output config
   output: {
     path: buildPath, // Path of output file
-    filename: "app.js" // Name of output file
+    filename: "app.js", // Name of output file
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -24,25 +27,28 @@ const config = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production"),
-        BUILD_DATE: JSON.stringify(new Date())
-      }
+        SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN),
+        BUILD_DATE: JSON.stringify(new Date()),
+        GIT_COMMIT: JSON.stringify(GIT_COMMIT),
+      },
     }),
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
     // Transfer Files
-    new TransferWebpackPlugin(
-      [
-        { from: "www/html" },
-        { from: "www/config" },
-        { from: "www/images", to: "images" }
-      ],
-      path.resolve(__dirname, "src")
+    new CopyWebpackPlugin(
+
+      {
+          patterns: [
+              { from: 'src/www/html' },
+              { from: "src/www/images", to: "images" }
+          ]
+      }
     ),
     new WorkboxPlugin.GenerateSW({
       // these options encourage the ServiceWorkers to get in there fast
       // and not allow any straggling 'old' SWs to hang around
-      clientsClaim: true,
-      skipWaiting: true,
+      clientsClaim: false,
+      skipWaiting: false,
       include: [
         /\.html$/,
         /\.js$/,
@@ -50,30 +56,19 @@ const config = {
         /\.svg$/,
         /\.png$/,
         /\.json$/,
-        /\.xml$/
+        /\.xml$/,
       ],
-      runtimeCaching: [
-        {
-          urlPattern: /./,
-          handler: "StaleWhileRevalidate",
-          options: {
-            // Add in any additional plugin logic you need.
-            plugins: [
-              {
-                cacheDidUpdate: event => {
-                  clients.matchAll().then(clients => {
-                    clients.forEach(client => {
-                      var msg_chan = new MessageChannel();
-                      client.postMessage("APP_UPDATE", [msg_chan.port2]);
-                    });
-                  });
-                }
-              }
-            ]
-          }
-        }
-      ]
-    })
+    }),
+    new SentryCliPlugin({
+      release: `seven23@1.0.0-${GIT_COMMIT}`,
+      include: "build",
+      ignoreFile: ".sentrycliignore",
+      ignore: [
+        "node_modules",
+        "webpack-dev-server.config.js",
+        "webpack-production.config.js",
+      ],
+    }),
   ],
   module: {
     rules: [
@@ -82,41 +77,40 @@ const config = {
         test: /\.js$/, // All .js files
         loader: "babel-loader",
         options: {
-          presets: [
-            [
-              "@babel/env",
-              {
-                targets: {
-                  edge: "17",
-                  firefox: "60",
-                  chrome: "67",
-                  safari: "11.1"
-                }
-              }
-            ],
-            "@babel/preset-react"
-          ],
+          presets: ["@babel/env", "@babel/react"],
           plugins: [
             "@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime"
-          ]
+            "@babel/plugin-transform-runtime",
+            "@babel/transform-arrow-functions",
+          ],
         },
-        exclude: [nodeModulesPath]
+        exclude: [nodeModulesPath],
       },
       {
         test: /\.worker.js$/,
-        loader: "worker-loader?inline&fallback=false"
+        loader: "worker-loader",
+        options: {
+          inline: "fallback",
+          filename: "[name].[contenthash].worker.js",
+        },
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|svg|eot|woff|ttf|svg|woff2)$/,
-        loader: "file-loader?name=[name].[ext]"
-      }
-    ]
-  }
+        use: [
+            {
+                loader: 'file-loader',
+                options: {
+                    name : 'name=[name].[ext]'
+                }
+            }
+        ]
+      },
+    ],
+  },
 };
 
 module.exports = config;
