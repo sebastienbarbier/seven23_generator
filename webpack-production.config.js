@@ -44,31 +44,31 @@ const config = {
           ]
       }
     ),
-    new WorkboxPlugin.GenerateSW({
-      // these options encourage the ServiceWorkers to get in there fast
-      // and not allow any straggling 'old' SWs to hang around
-      clientsClaim: false,
-      skipWaiting: false,
-      include: [
-        /\.html$/,
-        /\.js$/,
-        /\.jpg$/,
-        /\.svg$/,
-        /\.png$/,
-        /\.json$/,
-        /\.xml$/,
-      ],
-    }),
-    new SentryCliPlugin({
-      release: `seven23@1.0.0-${GIT_COMMIT}`,
-      include: "build",
-      ignoreFile: ".sentrycliignore",
-      ignore: [
-        "node_modules",
-        "webpack-dev-server.config.js",
-        "webpack-production.config.js",
-      ],
-    }),
+    // new WorkboxPlugin.GenerateSW({
+    //   // these options encourage the ServiceWorkers to get in there fast
+    //   // and not allow any straggling 'old' SWs to hang around
+    //   clientsClaim: false,
+    //   skipWaiting: false,
+    //   include: [
+    //     /\.html$/,
+    //     /\.js$/,
+    //     /\.jpg$/,
+    //     /\.svg$/,
+    //     /\.png$/,
+    //     /\.json$/,
+    //     /\.xml$/,
+    //   ],
+    // }),
+    // new SentryCliPlugin({
+    //   release: `seven23@1.0.0-${GIT_COMMIT}`,
+    //   include: "build",
+    //   ignoreFile: ".sentrycliignore",
+    //   ignore: [
+    //     "node_modules",
+    //     "webpack-dev-server.config.js",
+    //     "webpack-production.config.js",
+    //   ],
+    // }),
   ],
   module: {
     rules: [
