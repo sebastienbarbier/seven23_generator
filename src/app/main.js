@@ -10,6 +10,12 @@ import moment from "moment";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles"; // v1.x
 import MomentUtils from "@date-io/moment";
 
+import Box from "@mui/material/Box";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from "@mui/material/Container";
+
 import SnackbarsManager from "./components/snackbars/SnackbarsManager";
 
 // Component for router
@@ -62,24 +68,19 @@ export const Main = () => {
       <ThemeProvider theme={theme}>
         <div id="appContainer">
           <div id="iPadBorder"></div>
-          <div
-            id="container"
-            style={{
-              backgroundColor: theme.palette.background.default,
-              color: theme.palette.text.primary
-            }}
-          >
-            <div id="content">
-              <div id="toolbar" className="hideMobile">
-                <div className="left"></div>
-                <div className="right"></div>
-              </div>
-              <main style={{ position: "relative", flexGrow: 1 }}>
-                <Generator />
-                <SnackbarsManager />
-              </main>
-            </div>
-          </div>
+          <Box sx={{ display: 'flex' }}>
+            <AppBar>
+              <Toolbar>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  Seven23 Generator
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Container>
+              <Generator />
+              <SnackbarsManager />
+            </Container>
+          </Box>
         </div>
       </ThemeProvider>
     </StyledEngineProvider>

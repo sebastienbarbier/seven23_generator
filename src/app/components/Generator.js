@@ -25,13 +25,12 @@ export default function Generator() {
   return (
     <div
       style={{
-        padding: 50,
+        paddingTop: 100,
         display: "flex",
         flexDirection: "column",
         alignItems: "center"
       }}
     >
-      <h1>Seven23 Generator</h1>
       <Button variant="contained" color="primary" onClick={() => generate()}>
         Generate and download data
       </Button>
