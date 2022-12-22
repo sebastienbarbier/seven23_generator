@@ -1,6 +1,6 @@
 {
   "name": "seven23Generator",
-  "version": "0.15.0",
+  "version": "1.0.0",
   "description": "seven23Generator",
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js",
