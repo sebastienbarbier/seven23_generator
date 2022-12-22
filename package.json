@@ -8,11 +8,6 @@
     "prettier": "prettier --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'",
     "heroku-postbuild": "npm run build"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "private": true,
   "devDependencies": {
     "@babel/cli": "^7.19.3",
