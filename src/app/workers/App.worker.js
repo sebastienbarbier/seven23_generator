@@ -16,7 +16,7 @@ onmessage = function(event) {
   const account = {
     id: uuidv4(),
     name: "Generated data",
-    currencies: [1, 2],
+    currencies: [1, 2, 7],
     currency: 1
   };
 
@@ -35,10 +35,14 @@ onmessage = function(event) {
   */
   const transactions = generateTransactions(dateBegin, dateEnd, categories, account);
 
-  postMessage({
+  console.log(transactions);
+
+  const result = {
     account,
     categories,
     changes,
-    transactions,
-  });
+    transactions
+  };
+
+  postMessage(result);
 };
