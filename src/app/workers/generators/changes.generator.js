@@ -1,6 +1,14 @@
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
+const RATES_FROM_EURO = {
+  1: 1, // 1 / Euro
+  2: 0.99, // 2 / Swiss Franc
+  4: 36.97, // 4 / Thai Baths
+  7: 1.06, // 7 / USD
+  8: 141 // 8 / Japanese yen
+};
+
 function randomName() {
 	const LIST_CHANGE_LABEL = [
 		'From Withdraw at the ATM',
@@ -18,22 +26,15 @@ function randomName() {
  * Return list of Change objects
  */
 function generateChanges(begin, end) {
-	// id / label
-	// 1 / Euro
-	// 2 / Swiss Franc
-	// 4 / Thai Baths
-	// 7 / USD
-	// 8 / Japanese yen
-
 	let changes = [];
 
 	let day = moment(begin);
 
 	const ratesFromEuro = {
-		2: 0.99,
-		4: 36.97,
-		7: 1.06,
-		8: 141
+		2: 0.99, // 2 / Swiss Franc
+		4: 36.97, // 4 / Thai Baths
+		7: 1.06, // 7 / USD
+		8: 141 // 8 / Japanese yen
 	}
 
 	const min = -8000; // 80 euros
@@ -65,4 +66,4 @@ function generateChanges(begin, end) {
 	return changes;
 }
 
-export default generateChanges;
+export { generateChanges, RATES_FROM_EURO };

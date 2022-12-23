@@ -2,8 +2,8 @@ import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 
 import generateTransactions from "./generators/transactions.generator";
-import generateChanges from "./generators/changes.generator";
-import generateCategories from "./generators/categories.generator";
+import { generateChanges } from "./generators/changes.generator";
+import { generateCategories } from "./generators/categories.generator";
 
 
 onmessage = function(event) {
