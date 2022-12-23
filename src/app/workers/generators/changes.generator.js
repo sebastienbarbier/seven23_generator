@@ -56,7 +56,7 @@ function generateChanges(begin, end) {
 	    });
 
 		// Update currency rate from your beween 0 and 0.5 %
-		const pourcentage = (Math.random() - 0.5) / 100
+		const pourcentage = (Math.random() - 0.5) / 100 * 2
 		ratesFromEuro[currency_id] = ratesFromEuro[currency_id] - ratesFromEuro[currency_id] * pourcentage;
 
 		day.add(1, 'week');

@@ -10,7 +10,8 @@ const categories_sample = [
   'Leisure and culture', // # 8
   'Education', // # 9
   'Catering and hotels', // # 10
-  'Miscellaneous goods and services' // # 11
+  'Miscellaneous goods and services',// # 11
+  'Salary' // # 12
 ];
 
 /**

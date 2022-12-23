@@ -16,7 +16,7 @@ onmessage = function(event) {
   const account = {
     id: uuidv4(),
     name: "Generated data",
-    currencies: [1, 2, 7],
+    currencies: [1, 2, 4, 7, 8],
     currency: 1
   };
 
