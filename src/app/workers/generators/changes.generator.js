@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from "uuid";
  * Return list of Change objects
  */
 function generateChanges(begin, end) {
+	// id / label
+	// 1 / Euro
+	// 2 / Swiss Franc
+	// 7 / USD
 	return [
 	    {
 	      id: uuidv4(),
