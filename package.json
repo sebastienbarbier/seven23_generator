@@ -1,4 +1,4 @@
-{
+  {
   "name": "seven23Generator",
   "version": "1.0.0",
   "description": "seven23Generator",
@@ -7,11 +7,6 @@
     "build": "webpack --config webpack-production.config.js;cp build/index.html build/404.html; cp build/index.html build/401.html",
     "prettier": "prettier --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'",
     "heroku-postbuild": "npm run build"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
   },
   "private": true,
   "devDependencies": {
@@ -36,7 +31,6 @@
     "eslint-plugin-react": "^7.31.8",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
-    "husky": "^8.0.1",
     "jest": "^29.1.2",
     "node-sass": "^7.0.3",
     "postcss": "^8.4.8",
