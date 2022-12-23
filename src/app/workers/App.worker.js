@@ -35,8 +35,6 @@ onmessage = function(event) {
   */
   const transactions = generateTransactions(dateBegin, dateEnd, categories, account);
 
-  console.log(transactions);
-
   const result = {
     account,
     categories,
