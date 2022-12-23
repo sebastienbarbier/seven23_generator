@@ -35,12 +35,10 @@ onmessage = function(event) {
   */
   const transactions = generateTransactions(dateBegin, dateEnd, categories, account);
 
-  const result = {
+  postMessage({
     account,
     categories,
     changes,
     transactions
-  };
-
-  postMessage(result);
+  });
 };

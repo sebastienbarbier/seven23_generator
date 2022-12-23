@@ -71,7 +71,7 @@ function generateTransactions(dateBegin, dateEnd, categories, account) {
         let budget = MONTHLY_SALARY * (category.pourcent_salary / 100);
 
         // We randomize a bit the budget too so graph looks better
-        budget = budget * randomFloatFromInterval(0.7, 1.5);
+        budget = budget * randomFloatFromInterval(0.6, 1.5);
 
         // we generate X transactions between min and max euros
         for (let transaction = 0; transaction < category.per_month; transaction++) {

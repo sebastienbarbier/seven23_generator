@@ -1,6 +1,7 @@
 const CATEGORIES = [
   { // # 0
-    name: 'Food and non-alcoholic beverages', 
+    name: 'Food and Drinks',
+    description: 'Food and non-alcoholic beverages', 
     type: 'expenses',
     pourcent_salary: 13.5,
     per_month: 24,
@@ -23,7 +24,8 @@ const CATEGORIES = [
     ]
   },
   { // # 1
-    name: 'Alcoholic beverages and tobacco', 
+    name: 'Alcoholic & Tobacco',
+    description: 'Alcoholic beverages and tobacco', 
     type: 'expenses',
     pourcent_salary: 1.9,
     per_month: 1,
@@ -36,7 +38,8 @@ const CATEGORIES = [
     ]
   },
   { // # 2
-    name: 'Clothing and footwear', 
+    name: 'Clothing',
+    description: 'Clothing and footwear', 
     type: 'expenses',
     pourcent_salary: 5.5,
     per_month: 1,
@@ -50,7 +53,8 @@ const CATEGORIES = [
     ]
   },
   { // # 3
-    name: 'Housing, water, gas, electricity and other fuels', 
+    name: 'Housing',
+    description: 'Housing, water, gas, electricity and other fuels', 
     type: 'expenses',
     pourcent_salary: 13.4,
     per_month: 4,
@@ -62,7 +66,8 @@ const CATEGORIES = [
     ]
   },
   { // # 4
-    name: 'Furniture, household items and routine home maintenance', 
+    name: 'Furniture & household',
+    description: 'Furniture, household items and routine home maintenance', 
     type: 'expenses',
     pourcent_salary: 6.5,
     per_month: 4,
@@ -82,7 +87,8 @@ const CATEGORIES = [
     ]
   },
   { // # 5
-    name: 'Health', 
+    name: 'Health',
+    description: null, 
     type: 'expenses',
     pourcent_salary: 1.8,
     per_month: 2,
@@ -94,7 +100,8 @@ const CATEGORIES = [
     ]
   },
   { // # 6
-    name: 'Transport', 
+    name: 'Transport',
+    description: null,
     type: 'expenses',
     pourcent_salary: 16.8,
     per_month: 4,
@@ -109,7 +116,8 @@ const CATEGORIES = [
     ]
   },
   { // # 7
-    name: 'Communications', 
+    name: 'Communications',
+    description: null,
     type: 'expenses',
     pourcent_salary: 2.1,
     per_month: 2,
@@ -119,7 +127,8 @@ const CATEGORIES = [
     ]
   },
   { // # 8
-    name: 'Leisure and culture', 
+    name: 'Leisure and culture',
+    description: null,
     type: 'expenses',
     pourcent_salary: 11.3,
     per_month: 8,
@@ -139,7 +148,8 @@ const CATEGORIES = [
     ]
   },
   { // # 9
-    name: 'Education', 
+    name: 'Education',
+    description: null,
     type: 'expenses',
     pourcent_salary: 1.3,
     per_month: 2,
@@ -149,7 +159,8 @@ const CATEGORIES = [
     ]
   },
   { // # 10
-    name: 'Restaurants and hotels', 
+    name: 'Restaurants and hotels',
+    description: null,
     type: 'expenses',
     pourcent_salary: 10.7,
     per_month: 4,
@@ -164,7 +175,8 @@ const CATEGORIES = [
     ]
   },
   { // # 11
-    name: 'Miscellaneous goods and services',
+    name: 'Others',
+    description: 'Miscellaneous goods and services',
     type: 'expenses',
     pourcent_salary: 15.2,
     per_month: 3,
@@ -186,7 +198,8 @@ const CATEGORIES = [
     ]
   },
   { // # 12
-    name: 'Salary', 
+    name: 'Salary',
+    description: null, 
     type: 'income',
     pourcent_salary: 100,
     per_month: 1,
@@ -207,6 +220,7 @@ function generateCategories() {
         categories.push({
             id: index,
             name: category.name,
+            description: category.description || undefined,
             active: true,
             deleted: false
         });
