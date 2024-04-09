@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
-## [1.0.0] - 2022-06-22
+
+## [1.1.0] - 2022-MM-DD
+### ✨ Feature
+- Makes generated data more realistic ([#1](https://github.com/sebastienbarbier/seven23_generator/issues/1)) 
+
+## [1.0.0] - 2022-12-22
 ### ✨ Feature
 - Generate a default data set of twelve months.

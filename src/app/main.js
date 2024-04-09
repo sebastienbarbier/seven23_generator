@@ -36,30 +36,6 @@ import "./main.scss";
  */
 export const Main = () => {
   const dispatch = useDispatch();
-
-  //
-  // Handle listenner to notify serviceworker onupdatefound event with a snackbar
-  //
-
-  // useEffect(() => {
-  //   // Connect with workbow to display snackbar when update is available.
-  //   if (process.env.NODE_ENV != "development" && "serviceWorker" in navigator) {
-  //     navigator.serviceWorker.addEventListener("message", event => {
-  //       if (event.data == "APP_UPDATE") {
-  //         dispatch(AppActions.cacheDidUpdate());
-  //       }
-  //     });
-
-  //     window.addEventListener("load", () => {
-  //       navigator.serviceWorker
-  //         .register("/service-worker.js")
-  //         .catch(registrationError => {
-  //           console.log("SW registration failed: ", registrationError);
-  //         });
-  //     });
-  //   }
-  // }, []);
-
   // Load theme to inject in MuiThemeProvider
   const theme = useTheme();
 

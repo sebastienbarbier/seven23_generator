@@ -3,7 +3,6 @@
  * which incorporates components provided by Material-UI.
  */
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 import Snackbar from "@mui/material/Snackbar";
